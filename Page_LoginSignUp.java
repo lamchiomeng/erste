@@ -41,7 +41,7 @@ public class Page_LoginSignUp {
 			successLoginToMainPage(driverApp);
 		}		
 	        verification(loginVerification);
-	} //end setDesCap method
+	} //end clickLogin method
 	static void successLoginToMainPage(AndroidDriver<MobileElement> driverApp) {
 		try {
 			driverApp.findElement(By.xpath("//*[@text = 'This is your cash account, where you can track your cash payments.']")).click(); //first tooltip
@@ -50,7 +50,7 @@ public class Page_LoginSignUp {
 		catch(Exception e) {
 			loginVerification = driverApp.findElement(By.xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.view.ViewGroup/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.view.ViewGroup/android.widget.TextView")).getText(); //Parameter to ensure Login is successful			
 		}
-	}//end successLoginTo<ainPage	
+	}//end successLoginToMainPage	
 	public static void verification(String loginVerifcation) throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, InstantiationException, ClassNotFoundException {
 		callingClass = new Exception().getStackTrace()[2].getClassName(); 
         	Class<?> cls = Class.forName(callingClass);
@@ -62,7 +62,7 @@ public class Page_LoginSignUp {
 	        Method method = cls.getDeclaredMethod(methodToCall, arg[0]);
 		method.invoke(obj,loginVerification);
 	} //end loginVerification 
-}//end public class DesCap
+}//end pPage_LoginSignUp 
 
 
 
