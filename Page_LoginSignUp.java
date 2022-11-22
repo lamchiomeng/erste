@@ -62,7 +62,7 @@ public class Page_LoginSignUp {
 	        Method method = cls.getDeclaredMethod(methodToCall, arg[0]);
 		method.invoke(obj,loginVerification);
 	} //end loginVerification 
-}//end pPage_LoginSignUp 
+}//end Page_LoginSignUp 
 
 
 
