@@ -45,6 +45,7 @@ public class TC_Login {
 	static String testCase;
 	static String testDataFile;
 	static String testDataTab;
+	static String testDataTab1;
 	static String dateTime;
 	static String testResultFilename;
 	static String deviceName;
@@ -53,15 +54,19 @@ public class TC_Login {
 	static String appActivity;
 	static String result;
 	static String fileName;
+	static String userName;
+	static String passWord;
 	static int countDesCapTab;
+	static int countLoginDetailsTab;
 	@SuppressWarnings("static-access")
 	public static void main(String[] args) throws IOException, ClassNotFoundException, InstantiationException, IllegalAccessException, NoSuchMethodException, SecurityException, IllegalArgumentException, InvocationTargetException { //Main method
 		//The following variables are for testing in DEV MODE. Comment it when testing in production
 		testCase = "TC_Login"; 		
-		testDataFile = "C:\\TA\\TD\\TestData.xlsx";				
+		testDataFile = "D:\\TA\\erstre\\TestData.xlsx";				
 		testDataTab = "DesCap";	// defined by tester to indicate which tab in Test Data to refer to
+		testDataTab1 = "LoginDetails";
 		dateTime = new SimpleDateFormat("yyyyMMdd_HHmm'.html'").format(new Date());
-		testResultFilename = "c://TA//TR//"+testCase+"_"+dateTime;
+		testResultFilename = "D://TA//TR//"+testCase+"_"+dateTime;
 		fileName = testCase+"_"+dateTime;		
 		//The following variables are for testing in Production. Comment it when testing in DEV MODE
 		/*testCase = args[0];
@@ -82,13 +87,26 @@ public class TC_Login {
             appPackage = currentrowDesCap.getCell(2).toString();	            
 		    appActivity = currentrowDesCap.getCell(3).toString();	
 		    DesCap desCapObj = new DesCap();
-			desCapObj.setDesCap(deviceName, platformName, appPackage, appActivity);			
+			desCapObj.setDesCap(deviceName, platformName, appPackage, appActivity);		
 		}// end desCap tab loop	   
 	}// end main method
-	static void startScreen(DesiredCapabilities dc, AndroidDriver<MobileElement> driverApp) throws MalformedURLException, NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, InstantiationException, ClassNotFoundException {
-		Page_SplashScreen.clickStartNow(dc, driverApp);	
-		Page_LoginSignUp.clickLogin(dc, driverApp);
-	}
+	static void startScreen(DesiredCapabilities dc, AndroidDriver<MobileElement> driverApp) throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, InstantiationException, ClassNotFoundException, IOException {
+		//The following setups call to read Test Data File for Login Details 
+		FileInputStream loginDetails = new FileInputStream(testDataFile);		
+	 	XSSFWorkbook wbLoginDetails = new XSSFWorkbook(loginDetails);
+	 	XSSFSheet tabLoginDetails = wbLoginDetails.getSheet(testDataTab1);
+	 	System.out.println("No. of rows with data in LoginDetails tab : " + tabLoginDetails.getLastRowNum());
+		for(countLoginDetailsTab = 1; countLoginDetailsTab <= tabLoginDetails.getLastRowNum(); countLoginDetailsTab++) { //Login tab loop        			
+			System.out.println("Round : " + countLoginDetailsTab);
+			XSSFRow currentrowLoginDetails = tabLoginDetails.getRow(countLoginDetailsTab); //current row being read
+			
+			userName =  currentrowLoginDetails.getCell(0).toString();
+            passWord =  currentrowLoginDetails.getCell(1).toString();	
+            Page_SplashScreen.clickStartNow(dc, driverApp);	
+		    System.out.println("dc = " + dc + "and driverApp = " + driverApp);
+		    Page_LoginSignUp.clickLogin(dc, driverApp, userName, passWord);
+		}//end for LoginDetails tab
+	}//
 	static void verification(String loginVerification) { //verify login status (successful / fail)
 		if(loginVerification.equals("Home")) {
 			result = "PASS";
@@ -165,7 +183,7 @@ public class TC_Login {
 	    }
 	}// end resultFail
 	static void WriteToFile(String fileContent, String fileName) throws IOException {
-	    String projectPath = "C:/TA/TR";
+	    String projectPath = "D:/TA/TR";
 	    String tempFile = projectPath + File.separator+fileName;
 	    File file = new File(tempFile);
 	    // if file does exists, then delete and create a new file

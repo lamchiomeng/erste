@@ -26,9 +26,15 @@ public class Page_SplashScreen {
 	
 	public static void clickStartNow(DesiredCapabilities dc, AndroidDriver<MobileElement> driverApp) throws MalformedURLException {
 		driverApp.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-		driverApp.findElement(By.xpath("//*[@text = 'START NOW']")).click();
-	} //end setDesCap method
-}//end public class DesCap
+		try {
+			driverApp.findElement(By.xpath("//*[@text = 'START NOW']")).click();
+		}//end try
+		catch(Exception e) {
+			driverApp.findElement(By.xpath("//android.widget.ImageView[@content-desc='My Wallet']")).click();
+			driverApp.findElement(By.xpath("//*[@text = 'LOGOUT']")).click();
+		}//end catch
+	} //end clickStartNow method
+}//end public class Page_SplashScreen
 
 
 
