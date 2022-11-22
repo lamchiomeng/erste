@@ -1,3 +1,4 @@
+//This is the main test script.
 import java.text.SimpleDateFormat;
 import io.appium.java_client.remote.AndroidMobileCapabilityType;
 import io.appium.java_client.android.AndroidDriver;
@@ -38,7 +39,6 @@ import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.apache.xmlbeans.impl.xb.xsdschema.ListDocument.List;
-
 public class TC_Login {
 	//****** Variables declaration *******
 	static AndroidDriver <MobileElement> driverApp;	
@@ -83,10 +83,10 @@ public class TC_Login {
 		for(countDesCapTab = 1; countDesCapTab <= tabDesCap.getLastRowNum(); countDesCapTab++) { //desCap tab loop        			
 			XSSFRow currentrowDesCap = tabDesCap.getRow(countDesCapTab); //current row being read
 			deviceName = currentrowDesCap.getCell(0).toString();
-            platformName = currentrowDesCap.getCell(1).toString();	
-            appPackage = currentrowDesCap.getCell(2).toString();	            
-		    appActivity = currentrowDesCap.getCell(3).toString();	
-		    DesCap desCapObj = new DesCap();
+                        platformName = currentrowDesCap.getCell(1).toString();	
+                        appPackage = currentrowDesCap.getCell(2).toString();	            
+		        appActivity = currentrowDesCap.getCell(3).toString();	
+		        DesCap desCapObj = new DesCap();
 			desCapObj.setDesCap(deviceName, platformName, appPackage, appActivity);		
 		}// end desCap tab loop	   
 	}// end main method
@@ -98,13 +98,12 @@ public class TC_Login {
 	 	System.out.println("No. of rows with data in LoginDetails tab : " + tabLoginDetails.getLastRowNum());
 		for(countLoginDetailsTab = 1; countLoginDetailsTab <= tabLoginDetails.getLastRowNum(); countLoginDetailsTab++) { //Login tab loop        			
 			System.out.println("Round : " + countLoginDetailsTab);
-			XSSFRow currentrowLoginDetails = tabLoginDetails.getRow(countLoginDetailsTab); //current row being read
-			
+			XSSFRow currentrowLoginDetails = tabLoginDetails.getRow(countLoginDetailsTab); //current row being read			
 			userName =  currentrowLoginDetails.getCell(0).toString();
-            passWord =  currentrowLoginDetails.getCell(1).toString();	
-            Page_SplashScreen.clickStartNow(dc, driverApp);	
-		    System.out.println("dc = " + dc + "and driverApp = " + driverApp);
-		    Page_LoginSignUp.clickLogin(dc, driverApp, userName, passWord);
+            		passWord =  currentrowLoginDetails.getCell(1).toString();	
+           		Page_SplashScreen.clickStartNow(dc, driverApp);	
+		        System.out.println("dc = " + dc + "and driverApp = " + driverApp);
+		        Page_LoginSignUp.clickLogin(dc, driverApp, userName, passWord);
 		}//end for LoginDetails tab
 	}//
 	static void verification(String loginVerification) { //verify login status (successful / fail)
@@ -130,64 +129,64 @@ public class TC_Login {
 		StringBuilder htmlStringBuilder=new StringBuilder();
 		//The following create table header
 		htmlStringBuilder.append("<html><head><style>table{border-collapse: collapse; border:0px solid black}");
-	    htmlStringBuilder.append("th,td {border: 1px solid black;}");
-	    htmlStringBuilder.append("table.d {table-layout: fixed; width: 150%;}</style></head><body>");	
-	    htmlStringBuilder.append("<h2>"+testCase+": Result</h2>");
-	    htmlStringBuilder.append("<table class= 'd' >");
-	    htmlStringBuilder.append("<tr><th><b>Test Case</b></th>");
-	    htmlStringBuilder.append("<th><b>Expected Result</b></th>");
-	    htmlStringBuilder.append("<th><b>Result</b></th></tr>");
-	    if(result.equals("PASS")) {
-	    	resultPass(htmlStringBuilder.toString(), testCase, result);
-	    }
-	    else {
-	    	resultFail(htmlStringBuilder.toString(), testCase, result);
-	    }
+		htmlStringBuilder.append("th,td {border: 1px solid black;}");
+		htmlStringBuilder.append("table.d {table-layout: fixed; width: 150%;}</style></head><body>");	
+		htmlStringBuilder.append("<h2>"+testCase+": Result</h2>");
+		htmlStringBuilder.append("<table class= 'd' >");
+		htmlStringBuilder.append("<tr><th><b>Test Case</b></th>");
+		htmlStringBuilder.append("<th><b>Expected Result</b></th>");
+		htmlStringBuilder.append("<th><b>Result</b></th></tr>");
+		if(result.equals("PASS")) {
+	    		resultPass(htmlStringBuilder.toString(), testCase, result);
+	    	}
+	    	else {
+	    		resultFail(htmlStringBuilder.toString(), testCase, result);
+	        }
 	}// end createNewResultTable  
 	static void addRow(String testCase, String result) {
 		if(result.equals("PASS")) {
-	    	resultPass("", testCase, result);
-	    }
-	    else {
-	    	resultFail("", testCase, result);
-	    }
+	    		resultPass("", testCase, result);
+	        }
+	        else {
+	    		resultFail("", testCase, result);
+	        }
 	}//end addrow
 	static void resultPass(String stringBuilder, String testCase, String result) {
 		try {
-	        StringBuilder htmlStringBuilder=new StringBuilder();
-	        htmlStringBuilder.append("<table class= 'd' >");
-	        htmlStringBuilder.append(stringBuilder);
-	        htmlStringBuilder.append("<tr><td>"+testCase+"</td>");
-		    htmlStringBuilder.append("<td>"+"Home text is displayed"+"</td>");
-		    htmlStringBuilder.append("<td>"+result+"</td></tr>");
-	        htmlStringBuilder.append("</table></body></html>");
-	        WriteToFile(htmlStringBuilder.toString(), fileName);		        
-	    } 
+			StringBuilder htmlStringBuilder=new StringBuilder();
+			htmlStringBuilder.append("<table class= 'd' >");
+			htmlStringBuilder.append(stringBuilder);
+			htmlStringBuilder.append("<tr><td>"+testCase+"</td>");
+			htmlStringBuilder.append("<td>"+"Home text is displayed"+"</td>");
+			htmlStringBuilder.append("<td>"+result+"</td></tr>");
+			htmlStringBuilder.append("</table></body></html>");
+			WriteToFile(htmlStringBuilder.toString(), fileName);		        
+		} 
 		catch (IOException e) {
-	        e.printStackTrace();
-	    }
+	        	e.printStackTrace();
+	        }
 	}//end resultPass
 	static void resultFail(String stringBuilder, String testCase, String result) {
 		try {
 			StringBuilder htmlStringBuilder=new StringBuilder();
 			htmlStringBuilder.append("<table class= 'd' >");
-	        htmlStringBuilder.append(stringBuilder);
-	        htmlStringBuilder.append("<tr><td bgcolor = 'red'><p style ='color:white'>"+testCase+"</p></td>");
-		    htmlStringBuilder.append("<td bgcolor = 'red'><p style ='color:white'>"+"Home text is displayed"+"</p></td>");
-		    htmlStringBuilder.append("<td bgcolor = 'red'><p style ='color:white'>"+result+"</p></td></tr>");
-	        htmlStringBuilder.append("</table></body></html>");
-	        WriteToFile(htmlStringBuilder.toString(),fileName);		        
-	    } 
+	        	htmlStringBuilder.append(stringBuilder);
+	        	htmlStringBuilder.append("<tr><td bgcolor = 'red'><p style ='color:white'>"+testCase+"</p></td>");
+		    	htmlStringBuilder.append("<td bgcolor = 'red'><p style ='color:white'>"+"Home text is displayed"+"</p></td>");
+		   	 htmlStringBuilder.append("<td bgcolor = 'red'><p style ='color:white'>"+result+"</p></td></tr>");
+	        	htmlStringBuilder.append("</table></body></html>");
+	        	WriteToFile(htmlStringBuilder.toString(),fileName);		        
+	    	} 
 		catch (IOException e) {
-	        e.printStackTrace();
-	    }
+	        	e.printStackTrace();
+	    	}
 	}// end resultFail
 	static void WriteToFile(String fileContent, String fileName) throws IOException {
 	    String projectPath = "D:/TA/TR";
 	    String tempFile = projectPath + File.separator+fileName;
 	    File file = new File(tempFile);
 	    // if file does exists, then delete and create a new file
-	          //write to file with OutputStreamWriter
+	    //write to file with OutputStreamWriter
 	    //OutputStream outputStream = new FileOutputStream(file);
 	    FileOutputStream fos =new FileOutputStream(file, true) ;
 	    Writer writer=new OutputStreamWriter(fos);
