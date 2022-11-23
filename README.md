@@ -6,7 +6,7 @@ Files with prefix "TC" denotes test cases
 
 Files with prefix "Page" denotes the pages that will be traversed.
 
-The test scope for this demonstration covers 2 functionality of an the wallet tracking mobile app known as Wallet by BudgetBakers. The app is obtainable from https://play.google.com/store/apps/details?id=com.droid4you.application.wallet&referrer=utm_source%3Dhome_page
+The test scope for this demonstration covers 2 functionality of a wallet tracking mobile app known as Wallet by BudgetBakers. The app is obtainable from https://play.google.com/store/apps/details?id=com.droid4you.application.wallet&referrer=utm_source%3Dhome_page
 
 Functionality 1 :
 Test of Login function. In this test, 2 credentials will be pumped into the login page of the app. One of the credentials is valid, whle the other is invalid.
